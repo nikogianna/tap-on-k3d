@@ -1,0 +1,37 @@
+profile: light
+ceip_policy_disclosed: true
+
+buildservice:
+  kp_default_repository: "***********"
+  kp_default_repository_username: "******"
+  kp_default_repository_password: "******"
+  tanzunet_username: "*******"
+  tanzunet_password: "*******"
+  enable_automatic_dependency_updates: false
+
+supply_chain: basic
+
+ootb_supply_chain_basic:
+  registry:
+    server: "*********"
+    repository: "*********"
+  gitops:
+    ssh_secret: ""
+
+cnrs:
+  domain_name: example.com
+  # This is the secret that holds the TLS certificate, in the form <namespace>/<secret>
+  default_tls_secret: default/default-cert
+  # This is the template that knative's domains will use. The default is {{.Name}}.{{.Namespace}}.{{.Domain}}
+  # and that is problematic in our setting, because the wildcard certificate only works for the first wildcard 
+  # level (e.g. *.example.com). We need to keep the namespace in the domain however, for better separation of 
+  # development environments
+  domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
+
+tap_gui:
+  service_type: LoadBalancer
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
